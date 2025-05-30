@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alternativa Store | Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="font-sans antialiased bg-gray-50 text-gray-800">
+
+  <header class="shadow">
+    <div class="bg-gray-900 text-gray-100 text-sm py-2">
+      <div class="container mx-auto flex items-center justify-between px-4">
+        <span>Bem‑vindo à Alternativa Store!</span>
+        <div class="space-x-4">
+          <a href="login.html" class="hover:text-yellow-400">Entrar</a>
+          <a href="carrinho.html" class="hover:text-yellow-400">Criar conta</a>
+          <a href="cadastro.html" class="inline-flex items-center hover:text-yellow-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.2 6h12.4M7 13L5.4 5M16 17a2 2 0 100 4 2 2 0 000-4zm-8 0a2 2 0 100 4 2 2 0 000-4z" />
+            </svg>
+            Carrinho
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="bg-white">
+      <div class="container mx-auto flex items-center justify-between px-4 py-3">
+        <a href="index.html" class="text-2xl font-bold tracking-wider text-gray-900">Alternativa Store</a>
+        <div class="w-1/2">
+          <form>
+            <label class="relative block">
+              <span class="sr-only">Pesquisar</span>
+              <input class="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-full py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm" placeholder="Buscar produto..." type="text" name="search"/>
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1111.192 3.648l4.897 4.897a1 1 0 01-1.414 1.414l-4.897-4.897A6 6 0 012 8z" clip-rule="evenodd" />
+                </svg>
+              </span>
+            </label>
+          </form>
+        </div>
+      </div>
+      <nav class="bg-gray-800">
+        <ul class="container mx-auto flex flex-wrap items-center justify-center text-gray-100 text-sm px-4">
+          <li class="mx-3 py-3"><a href="index.html" class="hover:text-yellow-400">Home</a></li>
+
+        </ul>
+      </nav>
+    </div>
+  </header>
+<section class="py-12">
+  <div class="container mx-auto px-4">
+    <h1 class="text-3xl font-bold mb-6">Painel do Administrador</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+      <div class="bg-white rounded-2xl shadow-lg p-6">
+        <h2 class="text-2xl font-semibold mb-4">Produtos</h2>
+        <table class="min-w-full text-sm">
+          <thead class="bg-gray-800 text-white">
+            <tr>
+              <th class="px-3 py-2 text-left">#</th>
+              <th class="px-3 py-2 text-left">Nome</th>
+              <th class="px-3 py-2 text-left">Preço</th>
+              <th class="px-3 py-2 text-left">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-lg p-6">
+        <h2 class="text-2xl font-semibold mb-4">Pedidos</h2>
+        <table class="min-w-full text-sm">
+          <thead class="bg-gray-800 text-white">
+            <tr>
+              <th class="px-3 py-2 text-left">Pedido</th>
+              <th class="px-3 py-2 text-left">Cliente</th>
+              <th class="px-3 py-2 text-left">Total</th>
+              <th class="px-3 py-2 text-left">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="bg-gray-800 text-gray-100 py-8 mt-16">
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
+      <div>
+        <h4 class="font-bold text-lg mb-4">Alternativa Store</h4>
+        <p class="text-sm">A loja online de camisas esportivas personalizadas.</p>
+      </div>
+      <div>
+        <h4 class="font-bold text-lg mb-4">Links Rápidos</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="catalogo.html" class="hover:text-yellow-400">Catálogo</a></li>
+          <li><a href="login.html" class="hover:text-yellow-400">Minha Conta</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-bold text-lg mb-4">Contato</h4>
+        <p class="text-sm">Email: -</p>
+        <p class="text-sm">WhatsApp: -</p>
+      </div>
+    </div>
+    <div class="text-center text-xs mt-8">© 2025 Alternativa Store – Todos os direitos reservados.</div>
+  </footer>
+</body>
+</html>
