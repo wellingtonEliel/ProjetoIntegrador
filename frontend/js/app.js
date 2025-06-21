@@ -1,35 +1,32 @@
-// Exemplo: login
-async function login(email, senha) {
-  const res = await fetch('http://localhost:3000/api/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, senha })
-  });
-  return await res.json();
-}
+document.addEventListener('DOMContentLoaded', () => {
+  const registerForm = document.getElementById('registerForm');
+  if (registerForm) {
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
 
-// Exemplo: cadastro
-async function cadastrar(nome, email, senha) {
-  const res = await fetch('http://localhost:3000/api/usuarios', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ nome, email, senha })
-  });
-  return await res.json();
-}
+      const nome = e.target.nome.value;     // ← Deve corresponder a name="nome" no HTML
+      const email = e.target.email.value;
+      const senha = e.target.password.value;
 
-// Exemplo: listar produtos
-async function listarProdutos() {
-  const res = await fetch('http://localhost:3000/api/produtos');
-  return await res.json();
-}
+      try {
+        const response = await fetch('http://localhost:3000/api/usuarios', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nome, email, senha })
+        });
 
-// Exemplo: criar pedido
-async function criarPedido(id_usuario, itens) {
-  const res = await fetch('http://localhost:3000/api/pedidos', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ id_usuario, itens })
-  });
-  return await res.json();
-}
+        const data = await response.json();
+
+        if (response.ok) {
+          alert(data.message || 'Cadastro realizado com sucesso!');
+          window.location.href = 'login.html';
+        } else {
+          alert(data.error || 'Erro ao cadastrar usuário.');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Erro ao conectar com o servidor.');
+      }
+    });
+  }
+});
