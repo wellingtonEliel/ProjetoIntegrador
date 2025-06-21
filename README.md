@@ -6,32 +6,30 @@ Projeto completo de loja virtual com funcionalidades de cadastro, login, gerenci
 
 ## Tecnologias Utilizadas
 
-- **Frontend**: HTML5, CSS3 (Tailwind via CDN), JavaScript
-- **Backend**: Node.js com Express
-- **Banco de Dados**: MySQL 8
-- **Ambiente**: Docker + Docker Compose
+- **Frontend**: [HTML5](https://developer.mozilla.org/pt-BR/docs/Web/HTML), [CSS3](https://developer.mozilla.org/pt-BR/docs/Web/CSS) (Tailwind via CDN), [JavaScript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
+- **Backend**: [Node.js](https://nodejs.org/) com [Express](https://expressjs.com/)
+- **Banco de Dados**: [MySQL 8](https://www.mysql.com/)
+- **Ambiente**: [Docker](https://www.docker.com/) + [Docker Compose](https://docs.docker.com/compose/)
 
 ---
 
 ## Estrutura do Projeto
 
-```plaintext
-alternativa-store/
-├── backend/
-│   ├── app.js
-│   ├── routes/
-│   ├── controllers/
-│   └── models/
-├── frontend/
+├── backend/              # Código do servidor Node.js e API
+│   ├── app.js            # Arquivo principal do servidor
+│   ├── routes/           # Definição das rotas da API
+│   ├── controllers/      # Lógica de controle das rotas
+│   └── models/           # Modelos de dados (ORM ou raw SQL)
+├── frontend/             # Páginas estáticas do frontend
 │   ├── index.html
 │   ├── cadastro.html
 │   ├── login.html
 │   ├── produtos.html
-│   └── js/
-├── init.sql
-├── docker-compose.yml
+│   └── js/               # Scripts JS do frontend
+├── init.sql              # Script de criação do banco de dados
+├── docker-compose.yml    # Configuração dos serviços Docker
 └── README.md
-```
+
 
 ---
 
