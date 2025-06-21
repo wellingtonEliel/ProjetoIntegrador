@@ -1,10 +1,10 @@
-# 🛒 Alternativa Store
+# Alternativa Store
 
 Projeto completo de loja virtual com funcionalidades de cadastro, login, gerenciamento de produtos e pedidos. Desenvolvido com Node.js, Express, MySQL e frontend estático com HTML/CSS/JS, tudo rodando via Docker.
 
 ---
 
-## 🚀 Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 - **Frontend**: HTML5, CSS3 (Tailwind via CDN), JavaScript
 - **Backend**: Node.js com Express
@@ -13,7 +13,7 @@ Projeto completo de loja virtual com funcionalidades de cadastro, login, gerenci
 
 ---
 
-## 📁 Estrutura do Projeto
+## Estrutura do Projeto
 
 ```plaintext
 alternativa-store/
@@ -35,7 +35,7 @@ alternativa-store/
 
 ---
 
-## ⚙️ Como rodar o projeto
+## Como rodar o projeto
 
 ### Pré-requisitos
 
@@ -65,7 +65,7 @@ http://localhost:3000
 
 ---
 
-## 🌐 Funcionalidades disponíveis
+## Funcionalidades disponíveis
 
 - Cadastro de usuário
 - Login
@@ -74,7 +74,7 @@ http://localhost:3000
 
 ---
 
-## 📚 Endpoints da API
+## Endpoints da API
 
 | Método | Rota                  | Descrição                  |
 |--------|-----------------------|----------------------------|
@@ -89,7 +89,7 @@ http://localhost:3000
 
 ---
 
-## 🔐 Acesso ao Banco de Dados
+## Acesso ao Banco de Dados
 
 Essas são as credenciais padrão configuradas no Docker Compose:
 
@@ -102,7 +102,7 @@ Essas são as credenciais padrão configuradas no Docker Compose:
 
 ---
 
-## 🐞 Dicas
+## Dicas
 
 - Para resetar o ambiente:
 
@@ -119,7 +119,7 @@ docker logs -f node_backend
 
 ---
 
-## 📌 Melhorias Futuras
+## Melhorias Futuras
 
 - [ ] Validação de formulários no frontend
 - [ ] Interface administrativa
@@ -128,6 +128,6 @@ docker logs -f node_backend
 
 ---
 
-## 📄 Licença
+## Licença
 
 Projeto com fins educacionais. Livre para modificar e usar.
