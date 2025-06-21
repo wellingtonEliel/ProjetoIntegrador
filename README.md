@@ -37,8 +37,8 @@ Projeto completo de loja virtual com funcionalidades de cadastro, login, gerenci
 
 ### Pré-requisitos
 
-- Docker instalado
-- Docker Compose instalado
+- [Docker](https://www.docker.com/) instalado
+- [Docker Compose](https://docs.docker.com/compose/)
 
 ### Passo a passo
 
@@ -114,17 +114,6 @@ docker-compose up --build
 ```bash
 docker logs -f node_backend
 ```
-
----
-
-## Melhorias Futuras
-
-- [ ] Validação de formulários no frontend
-- [ ] Interface administrativa
-- [ ] Responsividade mobile
-- [ ] Integração com sistema de pagamento
-
----
 
 ## Licença
 

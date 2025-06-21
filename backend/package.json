@@ -1,16 +1,19 @@
 {
   "name": "alternativa-store-backend",
   "version": "1.0.0",
-  "description": "Backend da Alternativa Store",
-  "main": "src/app.js",
+  "description": "Backend da aplicação Alternativa Store",
+  "main": "app.js",
   "scripts": {
-    "start": "node src/app.js"
+    "start": "node app.js"
   },
+  "author": "Wellington Eliel",
+  "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2",
-    "mysql2": "^3.3.3",
-    "dotenv": "^16.3.1",
-    "bcrypt": "^5.1.0",
-    "cors": "^2.8.5"
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.1",
+    "mysql2": "^3.14.1"
   }
 }
