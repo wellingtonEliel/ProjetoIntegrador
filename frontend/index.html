@@ -12,11 +12,12 @@
   <header class="shadow">
     <div class="bg-gray-900 text-gray-100 text-sm py-2">
       <div class="container mx-auto flex items-center justify-between px-4">
-        <span>Bem‑vindo à Alternativa Store!</span>
-        <div class="space-x-4">
-          <a href="login.html" class="hover:text-yellow-400">Entrar</a>
-          <a href="cadastro.html" class="hover:text-yellow-400">Criar conta</a>
-          <a href="carrinho.html" class="inline-flex items-center hover:text-yellow-400">
+        <span id="welcomeText">Bem‑vindo à Alternativa Store!</span>
+        <div class="space-x-4 flex items-center">
+          <a href="login.html" class="hover:text-yellow-400" id="linkEntrar">Entrar</a>
+          <a href="cadastro.html" class="hover:text-yellow-400" id="linkCriarConta">Criar conta</a>
+          <button id="btnSair" class="hidden hover:text-yellow-400 bg-transparent border-none cursor-pointer text-yellow-400 font-semibold">Sair</button>
+          <a href="carrinho.html" class="inline-flex items-center hover:text-yellow-400 ml-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.2 6h12.4M7 13L5.4 5M16 17a2 2 0 100 4 2 2 0 000-4zm-8 0a2 2 0 100 4 2 2 0 000-4z" />
@@ -149,5 +150,36 @@
     <div class="text-center text-xs mt-8">© 2025 Alternativa Store – Todos os direitos reservados.</div>
   </footer>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const usuario = JSON.parse(localStorage.getItem('usuario'));
+
+      const linkEntrar = document.getElementById('linkEntrar');
+      const linkCriarConta = document.getElementById('linkCriarConta');
+      const welcomeText = document.getElementById('welcomeText');
+      const btnSair = document.getElementById('btnSair');
+
+      if (usuario && usuario.nome) {
+        // Usuário está logado
+        if (linkEntrar) linkEntrar.style.display = 'none';
+        if (linkCriarConta) linkCriarConta.style.display = 'none';
+        if (welcomeText) welcomeText.textContent = `Bem-vindo(a), ${usuario.nome}!`;
+        if (btnSair) btnSair.style.display = 'inline-block';
+      } else {
+        // Usuário não está logado
+        if (linkEntrar) linkEntrar.style.display = 'inline';
+        if (linkCriarConta) linkCriarConta.style.display = 'inline';
+        if (welcomeText) welcomeText.textContent = 'Bem‑vindo à Alternativa Store!';
+        if (btnSair) btnSair.style.display = 'none';
+      }
+
+      if (btnSair) {
+        btnSair.addEventListener('click', () => {
+          localStorage.removeItem('usuario');
+          window.location.reload();
+        });
+      }
+    });
+  </script>
 </body>
 </html>

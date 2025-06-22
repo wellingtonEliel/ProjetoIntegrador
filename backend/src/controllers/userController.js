@@ -3,9 +3,14 @@ const bcrypt = require('bcrypt');
 
 exports.createUser = async (req, res) => {
   const { nome, email, senha } = req.body;
+  console.log('Recebido no req.body:', req.body); // 👈 VER AQUI
+
   try {
     const hashed = await bcrypt.hash(senha, 10);
-    await db.execute('INSERT INTO usuarios (nome, email, senha, tipo) VALUES (?, ?, ?, ?)', [nome, email, hashed, 'cliente']);
+    await db.execute(
+      'INSERT INTO usuarios (nome, email, senha, tipo) VALUES (?, ?, ?, ?)',
+      [nome, email, hashed, 'cliente']
+    );
     res.status(201).json({ message: 'Usuário criado com sucesso!' });
   } catch (err) {
     res.status(500).json({ error: err.message });

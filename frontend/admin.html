@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Alternativa Store | Admin</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="style.css" />
@@ -15,8 +15,8 @@
         <span>Bem‑vindo à Alternativa Store!</span>
         <div class="space-x-4">
           <a href="login.html" class="hover:text-yellow-400">Entrar</a>
-          <a href="carrinho.html" class="hover:text-yellow-400">Criar conta</a>
-          <a href="cadastro.html" class="inline-flex items-center hover:text-yellow-400">
+          <a href="cadastro.html" class="hover:text-yellow-400">Criar conta</a>
+          <a href="carrinho.html" class="inline-flex items-center hover:text-yellow-400">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.2 6h12.4M7 13L5.4 5M16 17a2 2 0 100 4 2 2 0 000-4zm-8 0a2 2 0 100 4 2 2 0 000-4z" />
@@ -46,54 +46,81 @@
       <nav class="bg-gray-800">
         <ul class="container mx-auto flex flex-wrap items-center justify-center text-gray-100 text-sm px-4">
           <li class="mx-3 py-3"><a href="index.html" class="hover:text-yellow-400">Home</a></li>
-
         </ul>
       </nav>
     </div>
   </header>
-<section class="py-12">
-  <div class="container mx-auto px-4">
-    <h1 class="text-3xl font-bold mb-6">Painel do Administrador</h1>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-      <div class="bg-white rounded-2xl shadow-lg p-6">
-        <h2 class="text-2xl font-semibold mb-4">Produtos</h2>
-        <table class="min-w-full text-sm">
-          <thead class="bg-gray-800 text-white">
-            <tr>
-              <th class="px-3 py-2 text-left">#</th>
-              <th class="px-3 py-2 text-left">Nome</th>
-              <th class="px-3 py-2 text-left">Preço</th>
-              <th class="px-3 py-2 text-left">Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            
-          </tbody>
-        </table>
-      </div>
+  <section class="py-12">
+    <div class="container mx-auto px-4">
+      <h1 class="text-3xl font-bold mb-6">Painel do Administrador</h1>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-      <div class="bg-white rounded-2xl shadow-lg p-6">
-        <h2 class="text-2xl font-semibold mb-4">Pedidos</h2>
-        <table class="min-w-full text-sm">
-          <thead class="bg-gray-800 text-white">
-            <tr>
-              <th class="px-3 py-2 text-left">Pedido</th>
-              <th class="px-3 py-2 text-left">Cliente</th>
-              <th class="px-3 py-2 text-left">Total</th>
-              <th class="px-3 py-2 text-left">Status</th>
-            </tr>
-          </thead>
-          <tbody>
+        <!-- Formulário para adicionar produto -->
+        <div class="bg-white rounded-2xl shadow-lg p-6">
+          <h2 class="text-2xl font-semibold mb-4">Adicionar Produto</h2>
+          <form id="addProductForm" class="space-y-4">
+            <div>
+              <label class="block font-medium mb-1" for="nomeProduto">Nome</label>
+              <input id="nomeProduto" name="nome" type="text" required
+                class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" />
+            </div>
+            <div>
+              <label class="block font-medium mb-1" for="precoProduto">Preço (R$)</label>
+              <input id="precoProduto" name="preco" type="number" step="0.01" min="0" required
+                class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" />
+            </div>
+            <div>
+              <label class="block font-medium mb-1" for="imagemProduto">URL da Imagem</label>
+              <input id="imagemProduto" name="imagem" type="url"
+                class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" />
+            </div>
+            <button type="submit" class="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold px-6 py-2 rounded">Adicionar Produto</button>
+          </form>
+        </div>
 
-          </tbody>
-        </table>
+        <!-- Tabela de Produtos e Pedidos -->
+        <div>
+          <div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Produtos</h2>
+            <table class="min-w-full text-sm table-auto">
+              <thead class="bg-gray-800 text-white">
+                <tr>
+                  <th class="px-3 py-2 text-left">#</th>
+                  <th class="px-3 py-2 text-left">Nome</th>
+                  <th class="px-3 py-2 text-left">Preço</th>
+                  <th class="px-3 py-2 text-left">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="produtosTableBody">
+                <!-- Produtos listados aqui via JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="bg-white rounded-2xl shadow-lg p-6">
+            <h2 class="text-2xl font-semibold mb-4">Pedidos</h2>
+            <table class="min-w-full text-sm table-auto">
+              <thead class="bg-gray-800 text-white">
+                <tr>
+                  <th class="px-3 py-2 text-left">Pedido</th>
+                  <th class="px-3 py-2 text-left">Cliente</th>
+                  <th class="px-3 py-2 text-left">Total</th>
+                  <th class="px-3 py-2 text-left">Status</th>
+                </tr>
+              </thead>
+              <tbody id="pedidosTableBody">
+                <!-- Pedidos listados aqui via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<footer class="bg-gray-800 text-gray-100 py-8 mt-16">
+  <footer class="bg-gray-800 text-gray-100 py-8 mt-16">
     <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
       <div>
         <h4 class="font-bold text-lg mb-4">Alternativa Store</h4>
@@ -114,5 +141,7 @@
     </div>
     <div class="text-center text-xs mt-8">© 2025 Alternativa Store – Todos os direitos reservados.</div>
   </footer>
+
+  <script src="admin.js"></script>
 </body>
 </html>

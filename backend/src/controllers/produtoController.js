@@ -10,9 +10,24 @@ exports.getProdutos = async (req, res) => {
 };
 
 exports.createProduto = async (req, res) => {
-  const { nome, modelo, tamanho, preco, estoque } = req.body;
+  let { nome, modelo, tamanho, preco, estoque } = req.body;
+
+  // Substitui undefined por null
+  modelo = modelo !== undefined ? modelo : null;
+  tamanho = tamanho !== undefined ? tamanho : null;
+  preco = preco !== undefined ? preco : null;
+  estoque = estoque !== undefined ? estoque : null;
+
+  // Validação básica
+  if (!nome || preco === null) {
+    return res.status(400).json({ error: 'Nome e preço são obrigatórios.' });
+  }
+
   try {
-    await db.execute('INSERT INTO produtos (nome, modelo, tamanho, preco, estoque) VALUES (?, ?, ?, ?, ?)', [nome, modelo, tamanho, preco, estoque]);
+    await db.execute(
+      'INSERT INTO produtos (nome, modelo, tamanho, preco, estoque) VALUES (?, ?, ?, ?, ?)',
+      [nome, modelo, tamanho, preco, estoque]
+    );
     res.status(201).json({ message: 'Produto criado com sucesso!' });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -21,9 +36,29 @@ exports.createProduto = async (req, res) => {
 
 exports.updateProduto = async (req, res) => {
   const { id } = req.params;
-  const { nome, modelo, tamanho, preco, estoque } = req.body;
+  let { nome, modelo, tamanho, preco, estoque } = req.body;
+
+  // Substitui undefined por null
+  modelo = modelo !== undefined ? modelo : null;
+  tamanho = tamanho !== undefined ? tamanho : null;
+  preco = preco !== undefined ? preco : null;
+  estoque = estoque !== undefined ? estoque : null;
+
+  // Validação básica
+  if (!nome || preco === null) {
+    return res.status(400).json({ error: 'Nome e preço são obrigatórios.' });
+  }
+
   try {
-    await db.execute('UPDATE produtos SET nome=?, modelo=?, tamanho=?, preco=?, estoque=? WHERE id=?', [nome, modelo, tamanho, preco, estoque, id]);
+    const [result] = await db.execute(
+      'UPDATE produtos SET nome=?, modelo=?, tamanho=?, preco=?, estoque=? WHERE id=?',
+      [nome, modelo, tamanho, preco, estoque, id]
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Produto não encontrado.' });
+    }
+
     res.json({ message: 'Produto atualizado com sucesso!' });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -33,10 +68,14 @@ exports.updateProduto = async (req, res) => {
 exports.deleteProduto = async (req, res) => {
   const { id } = req.params;
   try {
-    await db.execute('DELETE FROM produtos WHERE id=?', [id]);
+    const [result] = await db.execute('DELETE FROM produtos WHERE id=?', [id]);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Produto não encontrado.' });
+    }
+
     res.json({ message: 'Produto excluído com sucesso!' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
-
