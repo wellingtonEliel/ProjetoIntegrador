@@ -10,23 +10,22 @@ exports.getProdutos = async (req, res) => {
 };
 
 exports.createProduto = async (req, res) => {
-  let { nome, modelo, tamanho, preco, estoque } = req.body;
+  let { nome, modelo, tamanho, preco, estoque, imagem } = req.body;
 
-  // Substitui undefined por null
   modelo = modelo !== undefined ? modelo : null;
   tamanho = tamanho !== undefined ? tamanho : null;
   preco = preco !== undefined ? preco : null;
   estoque = estoque !== undefined ? estoque : null;
+  imagem = imagem !== undefined ? imagem : null;
 
-  // Validação básica
   if (!nome || preco === null) {
     return res.status(400).json({ error: 'Nome e preço são obrigatórios.' });
   }
 
   try {
     await db.execute(
-      'INSERT INTO produtos (nome, modelo, tamanho, preco, estoque) VALUES (?, ?, ?, ?, ?)',
-      [nome, modelo, tamanho, preco, estoque]
+      'INSERT INTO produtos (nome, modelo, tamanho, preco, estoque, imagem) VALUES (?, ?, ?, ?, ?, ?)',
+      [nome, modelo, tamanho, preco, estoque, imagem]
     );
     res.status(201).json({ message: 'Produto criado com sucesso!' });
   } catch (err) {
@@ -36,23 +35,22 @@ exports.createProduto = async (req, res) => {
 
 exports.updateProduto = async (req, res) => {
   const { id } = req.params;
-  let { nome, modelo, tamanho, preco, estoque } = req.body;
+  let { nome, modelo, tamanho, preco, estoque, imagem } = req.body;
 
-  // Substitui undefined por null
   modelo = modelo !== undefined ? modelo : null;
   tamanho = tamanho !== undefined ? tamanho : null;
   preco = preco !== undefined ? preco : null;
   estoque = estoque !== undefined ? estoque : null;
+  imagem = imagem !== undefined ? imagem : null;
 
-  // Validação básica
   if (!nome || preco === null) {
     return res.status(400).json({ error: 'Nome e preço são obrigatórios.' });
   }
 
   try {
     const [result] = await db.execute(
-      'UPDATE produtos SET nome=?, modelo=?, tamanho=?, preco=?, estoque=? WHERE id=?',
-      [nome, modelo, tamanho, preco, estoque, id]
+      'UPDATE produtos SET nome=?, modelo=?, tamanho=?, preco=?, estoque=?, imagem=? WHERE id=?',
+      [nome, modelo, tamanho, preco, estoque, imagem, id]
     );
 
     if (result.affectedRows === 0) {

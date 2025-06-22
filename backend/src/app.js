@@ -11,9 +11,11 @@ app.use(express.json());
 // Rotas da API
 app.use('/api', routes);
 
-
 const frontendPath = path.join(__dirname, '../frontend');
 console.log('Servindo arquivos estáticos de:', frontendPath);
+
+// 🔽 Adicione isso para servir imagens corretamente
+app.use('/imagens', express.static(path.join(frontendPath, 'imagens')));
 
 app.get('/cadastro', (req, res) => {
   res.sendFile(path.join(frontendPath, 'cadastro.html'));

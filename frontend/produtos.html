@@ -55,31 +55,32 @@
 <section class="py-12">
   <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-4">
     <div class="bg-white rounded-2xl shadow-lg p-4">
-      <img src="https://via.placeholder.com/600x600.png?text=Camisa" alt="Camisa" class="w-full h-auto rounded-lg">
-    </div>
+    <img id="produto-imagem" src="" alt="Imagem do Produto" class="w-full object-contain max-h-[600px] mx-auto">
     <div>
       <h1 class="text-3xl font-bold mb-4">Camisa Modelo X</h1>
       <p class="text-yellow-600 font-bold text-2xl mb-6">R$ 129,90</p>
       <form class="space-y-4">
         <div>
           <label class="block font-medium mb-1">Nome (máx. 20 caracteres)</label>
-          <input type="text" maxlength="20" class="w-full border border-gray-300 rounded-lg p-2" placeholder="Seu nome">
+          <input id="inputNome" type="text" maxlength="20" class="w-full border border-gray-300 rounded-lg p-2" placeholder="Seu nome">
         </div>
         <div>
           <label class="block font-medium mb-1">Número (0‑99)</label>
-          <input type="number" min="0" max="99" class="w-full border border-gray-300 rounded-lg p-2" placeholder="10">
+          <input  id="inputNumero" type="number" min="0" max="99" class="w-full border border-gray-300 rounded-lg p-2" placeholder="10">
         </div>
         <div>
           <label class="block font-medium mb-1">Tamanho</label>
-          <select class="w-full border border-gray-300 rounded-lg p-2">
+          <select id="inputTamanho" class="w-full border border-gray-300 rounded-lg p-2">
             <option>P</option><option>M</option><option>G</option><option>GG</option>
           </select>
         </div>
         <div>
-          <label class="block font-medium mb-1">Upload de Imagem (até 10MB)</label>
+          <label class="block font-medium mb-1">Numeração personalizada - Upload de Imagem (até 10MB)</label>
           <input type="file" class="w-full border border-gray-300 rounded-lg p-2">
         </div>
-        <button type="button" class="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold py-3 rounded-full shadow-lg">Adicionar ao Carrinho</button>
+        <button id="btnAdicionarCarrinho" type="button" class="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold py-3 rounded-full shadow-lg">
+          Adicionar ao Carrinho
+        </button>
       </form>
     </div>
   </div>

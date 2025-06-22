@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS produtos (
   modelo VARCHAR(100),
   tamanho VARCHAR(10),
   preco DECIMAL(10,2),
-  estoque INT
+  estoque INT,
+  imagem VARCHAR(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS pedidos (

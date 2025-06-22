@@ -39,9 +39,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const nome = formAddProduct.nome.value.trim();
       const preco = parseFloat(formAddProduct.preco.value);
       const imagem = formAddProduct.imagem.value.trim();
+      const imagemFinal = imagem;
+      const estoque = parseInt(formAddProduct.estoque.value);
+      const tamanho = formAddProduct.tamanho.value;
 
-      if (!nome || isNaN(preco) || preco < 0) {
-        alert('Por favor, preencha corretamente o nome e o preço.');
+      if (!nome || isNaN(preco) || preco < 0 || isNaN(estoque) || estoque < 0 || !tamanho) {
+        alert('Por favor, preencha todos os campos corretamente.');
         return;
       }
 
@@ -49,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const res = await fetch('http://localhost:3000/api/produtos', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ nome, preco, imagem }),
+          body: JSON.stringify({ nome, preco, imagem: imagemFinal , estoque, tamanho }),
         });
 
         const data = await res.json();

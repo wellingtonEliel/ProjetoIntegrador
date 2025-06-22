@@ -71,10 +71,41 @@
                 class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" />
             </div>
             <div>
-              <label class="block font-medium mb-1" for="imagemProduto">URL da Imagem</label>
-              <input id="imagemProduto" name="imagem" type="url"
+              <label class="block font-medium mb-1" for="imagemProduto">Imagem do Produto</label>
+              <select id="imagemProduto" name="imagem"
+                class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" required>
+                <option value="">Selecione a imagem</option>
+                <option value="Barcelona-24-25.jpeg">Camisa Barcelona 24-25</option>
+                <option value="Botafogo-24-25.jpeg">Camisa Botafogo 24-25</option>
+                <option value="Chelsea-24-25.jpeg">Camisa Chelsea 24-25</option>
+                <option value="Corinthians-24-25.jpeg">Camisa Corinthians 24-25</option>
+                <option value="Flamengo-24-25.jpeg">Camisa Flamengo 24-25</option>
+                <option value="Fluminense-24-25.jpeg">Camisa Fluminense 24-25</option>
+                <option value="Inter-24-25.jpeg">Camisa Inter 24-25</option>
+                <option value="Manchester-City-24-25.jpeg">Camisa Manchester City 24-25</option>
+                <option value="PSG-24-25.jpeg">Camisa PSG 24-25</option>
+                <option value="Santos-24-25.jpeg">Camisa Santos 24-25</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block font-medium mb-1" for="estoqueProduto">Estoque</label>
+              <input id="estoqueProduto" name="estoque" type="number" min="0" required
                 class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" />
             </div>
+
+            <div>
+              <label class="block font-medium mb-1" for="tamanhoProduto">Tamanho</label>
+              <select id="tamanhoProduto" name="tamanho" required
+                class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                <option value="">Selecione</option>
+                <option value="P">P</option>
+                <option value="M">M</option>
+                <option value="G">G</option>
+                <option value="GG">GG</option>
+              </select>
+            </div>
+
             <button type="submit" class="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold px-6 py-2 rounded">Adicionar Produto</button>
           </form>
         </div>

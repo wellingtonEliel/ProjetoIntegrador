@@ -69,9 +69,10 @@ if (document.getElementById('catalogo')) {
       container.innerHTML = '';
 
       // Filtra só os produtos com estoque > 0
+      console.log('Produtos recebidos do backend:', produtos);
       const produtosDisponiveis = produtos.filter(p => {
-        // Pode adaptar se quiser aceitar estoque nulo ou indefinido como 0
-        return p.estoque && p.estoque > 0;
+        const estoque = parseInt(p.estoque) || 0;
+        return estoque > 0;
       });
 
       if (produtosDisponiveis.length === 0) {
@@ -85,18 +86,21 @@ if (document.getElementById('catalogo')) {
           ? 'Preço indisponível'
           : `R$ ${precoNum.toFixed(2).replace('.', ',')}`;
 
+        // Monta caminho completo da imagem
+        const imagemSrc = `/imagens/${produto.imagem}`;
+
         const card = document.createElement('div');
         card.className = 'bg-white rounded-2xl shadow-lg overflow-hidden';
         card.innerHTML = `
-          <img src="https://via.placeholder.com/400x400.png?text=${encodeURIComponent(produto.nome)}" class="w-full h-56 object-cover" alt="${produto.nome}">
-          <div class="p-4">
-            <h3 class="font-semibold text-lg mb-2">${produto.nome}</h3>
-            <p class="text-yellow-600 font-bold mb-4">${precoFormatado}</p>
-            <div class="flex justify-between">
-              <a href="produtos.html?id=${produto.id}" class="text-sm bg-gray-800 text-white px-3 py-2 rounded-full">Detalhes</a>
-              <a href="produtos.html?id=${produto.id}" class="text-sm bg-yellow-400 text-gray-900 px-3 py-2 rounded-full">Personalizar</a>
+            <img src="${imagemSrc}" class="w-full h-80 object-cover" alt="${produto.nome}">
+            <div class="p-4">
+              <h3 class="font-semibold text-lg mb-2">${produto.nome}</h3>
+              <p class="text-yellow-600 font-bold mb-4">${precoFormatado}</p>
+              <div class="flex justify-between">
+                <a href="produtos.html?id=${produto.id}" class="text-sm bg-gray-800 text-white px-3 py-2 rounded-full">Adicionar ao carrinho</a>
+                <a href="produtos.html?id=${produto.id}" class="text-sm bg-yellow-400 text-gray-900 px-3 py-2 rounded-full">Personalizar</a>
+              </div>
             </div>
-          </div>
         `;
         container.appendChild(card);
       });
@@ -106,53 +110,67 @@ if (document.getElementById('catalogo')) {
   })();
 }
 
+
 // produtos.html
 if (location.pathname.includes('produtos.html')) {
-  (async () => {
-    const params = new URLSearchParams(location.search);
-    const id = params.get('id');
-    if (!id) return;
+  document.addEventListener('DOMContentLoaded', () => {
+    (async () => {
+      const params = new URLSearchParams(location.search);
+      const id = params.get('id');
+      if (!id) return;
 
-    try {
-      const res = await fetch('http://localhost:3000/api/produtos');
-      const produtos = await res.json();
-      const produto = produtos.find(p => p.id == id);
-      if (!produto) return;
+      try {
+        const res = await fetch('http://localhost:3000/api/produtos');
+        const produtos = await res.json();
+        const produto = produtos.find(p => p.id == id);
+        if (!produto) {
+          console.warn('Produto não encontrado');
+          return;
+        }
 
-      const titulo = document.querySelector('h1');
-      const precoElem = document.querySelector('p.text-yellow-600');
-      const btnAdicionar = document.querySelector('button');
+        // Preenche dados do produto na página
+        document.querySelector('h1').textContent = produto.nome;
+        document.querySelector('p.text-yellow-600').textContent = `R$ ${Number(produto.preco).toFixed(2).replace('.', ',')}`;
+        const imagemElem = document.querySelector('#produto-imagem');
+        if (imagemElem) {
+          imagemElem.src = `/imagens/${produto.imagem}`;
+          imagemElem.alt = produto.nome;
+        }
 
-      if (titulo) titulo.textContent = produto.nome;
-      if (precoElem) precoElem.textContent = `R$ ${produto.preco.toFixed(2).replace('.', ',')}`;
+        // Evento de adicionar ao carrinho
+        const btnAdicionar = document.getElementById('btnAdicionarCarrinho');
+        if (btnAdicionar) {
+          btnAdicionar.addEventListener('click', () => {
+            const nome = document.getElementById('inputNome').value.trim();
+            const numero = document.getElementById('inputNumero').value.trim();
+            const tamanho = document.getElementById('inputTamanho').value;
 
-      if (btnAdicionar) {
-        btnAdicionar.addEventListener('click', () => {
-          const nomePersonalizado = document.querySelector('input[type=text]').value.trim();
-          const numeroPersonalizado = document.querySelector('input[type=number]').value.trim();
-          const tamanho = document.querySelector('select').value;
+            if (!nome || !numero) {
+              alert('Por favor, preencha o nome e o número personalizados.');
+              return;
+            }
 
-          if (!nomePersonalizado || !numeroPersonalizado) {
-            alert('Por favor, preencha o nome e o número personalizados.');
-            return;
-          }
+            const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
 
-          const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-          carrinho.push({
-            id_produto: id,
-            quantidade: 1,
-            nome_personalizado: nomePersonalizado,
-            numero_personalizado: numeroPersonalizado,
-            tamanho,
+            carrinho.push({
+              id_produto: produto.id,
+              quantidade: 1,
+              nome_personalizado: nome,
+              numero_personalizado: numero,
+              tamanho,
+              imagem: produto.imagem,
+            });
+
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+            alert('Produto adicionado ao carrinho!');
           });
-          localStorage.setItem('carrinho', JSON.stringify(carrinho));
-          alert('Adicionado ao carrinho!');
-        });
+        }
+
+      } catch (err) {
+        console.error('Erro ao carregar produto:', err);
       }
-    } catch (err) {
-      console.error('Erro ao carregar produto:', err);
-    }
-  })();
+    })();
+  });
 }
 
 // carrinho.html
@@ -170,13 +188,17 @@ if (location.pathname.includes('carrinho.html')) {
         const produto = produtos.find(p => p.id == item.id_produto);
         if (!produto) return;
 
-        const subtotal = produto.preco * item.quantidade;
+        const preco = Number(produto.preco) || 0;
+        const subtotal = preco * item.quantidade;
         const tr = document.createElement('tr');
         tr.className = 'border-b';
         tr.innerHTML = `
+          <td class="px-4 py-3">
+            <img src="/imagens/${item.imagem}" alt="${produto.nome}" class="w-20 h-auto mx-auto">
+          </td>
           <td class="px-4 py-3">${produto.nome}</td>
           <td class="px-4 py-3">${item.nome_personalizado} #${item.numero_personalizado}</td>
-          <td class="px-4 py-3">R$ ${produto.preco.toFixed(2).replace('.', ',')}</td>
+          <td class="px-4 py-3">R$ ${preco.toFixed(2).replace('.', ',')}</td>
           <td class="px-4 py-3">${item.quantidade}</td>
           <td class="px-4 py-3">R$ ${subtotal.toFixed(2).replace('.', ',')}</td>
           <td class="px-4 py-3"><button data-id="${item.id_produto}" class="remover text-red-500">Remover</button></td>
