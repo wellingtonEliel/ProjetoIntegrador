@@ -12,11 +12,12 @@
   <header class="shadow">
     <div class="bg-gray-900 text-gray-100 text-sm py-2">
       <div class="container mx-auto flex items-center justify-between px-4">
-        <span>Bem‑vindo à Alternativa Store!</span>
-        <div class="space-x-4">
-          <a href="login.html" class="hover:text-yellow-400">Entrar</a>
-          <a href="cadastro.html" class="hover:text-yellow-400">Criar conta</a>
-          <a href="carrinho.html" class="inline-flex items-center hover:text-yellow-400">
+        <span id="welcomeText">Bem‑vindo à Alternativa Store!</span>
+        <div class="space-x-4 flex items-center">
+          <a href="login.html" class="hover:text-yellow-400" id="linkEntrar">Entrar</a>
+          <a href="cadastro.html" class="hover:text-yellow-400" id="linkCriarConta">Criar conta</a>
+          <button id="btnSair" class="hidden hover:text-yellow-400 bg-transparent border-none cursor-pointer text-yellow-400 font-semibold">Sair</button>
+          <a href="carrinho.html" class="inline-flex items-center hover:text-yellow-400 ml-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.2 6h12.4M7 13L5.4 5M16 17a2 2 0 100 4 2 2 0 000-4zm-8 0a2 2 0 100 4 2 2 0 000-4z" />
@@ -29,27 +30,7 @@
     <div class="bg-white">
       <div class="container mx-auto flex items-center justify-between px-4 py-3">
         <a href="index.html" class="text-2xl font-bold tracking-wider text-gray-900">Alternativa Store</a>
-        <div class="w-1/2">
-          <form>
-            <label class="relative block">
-              <span class="sr-only">Pesquisar</span>
-              <input class="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-full py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm" placeholder="Buscar produto..." type="text" name="search"/>
-              <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1111.192 3.648l4.897 4.897a1 1 0 01-1.414 1.414l-4.897-4.897A6 6 0 012 8z" clip-rule="evenodd" />
-                </svg>
-              </span>
-            </label>
-          </form>
-        </div>
       </div>
-
-      <nav class="bg-gray-800">
-        <ul class="container mx-auto flex flex-wrap items-center justify-center text-gray-100 text-sm px-4">
-          <li class="mx-3 py-3"><a href="index.html" class="hover:text-yellow-400">Home</a></li>
-
-        </ul>
-      </nav>
     </div>
   </header>
 <section class="py-12">
@@ -92,6 +73,7 @@
     </div>
     <div class="text-center text-xs mt-8">© 2025 Alternativa Store – Todos os direitos reservados.</div>
   </footer>
+
   <script src="app.js" defer></script>
 </body>
 </html>

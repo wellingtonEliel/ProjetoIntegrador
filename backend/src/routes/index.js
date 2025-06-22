@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+
 const userController = require('../controllers/userController');
 const produtoController = require('../controllers/produtoController');
 const pedidoController = require('../controllers/pedidoController');
@@ -17,6 +18,6 @@ router.delete('/produtos/:id', produtoController.deleteProduto);
 // Pedidos
 router.post('/pedidos', pedidoController.criarPedido);
 router.get('/pedidos', pedidoController.listarPedidos);
+router.put('/pedidos/:id/status', pedidoController.atualizarStatus); 
 
 module.exports = router;
-

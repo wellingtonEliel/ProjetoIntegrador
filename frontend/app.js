@@ -16,7 +16,11 @@ if (document.getElementById('loginForm')) {
 
       if (res.ok) {
         localStorage.setItem('usuario', JSON.stringify(data.usuario));
-        window.location.href = 'index.html';
+        if (data.usuario.email === 'admin@admin.admin') {
+          window.location.href = 'admin.html'; // redireciona para painel admin
+        } else {
+          window.location.href = 'index.html'; // redireciona para home do cliente
+        }
       } else {
         alert('Erro: ' + (data.error || 'Falha ao efetuar login'));
       }
@@ -25,6 +29,7 @@ if (document.getElementById('loginForm')) {
     }
   });
 }
+
 
 // cadastro.html
 if (document.getElementById('registerForm')) {
@@ -97,7 +102,6 @@ if (document.getElementById('catalogo')) {
               <h3 class="font-semibold text-lg mb-2">${produto.nome}</h3>
               <p class="text-yellow-600 font-bold mb-4">${precoFormatado}</p>
               <div class="flex justify-between">
-                <a href="produtos.html?id=${produto.id}" class="text-sm bg-gray-800 text-white px-3 py-2 rounded-full">Adicionar ao carrinho</a>
                 <a href="produtos.html?id=${produto.id}" class="text-sm bg-yellow-400 text-gray-900 px-3 py-2 rounded-full">Personalizar</a>
               </div>
             </div>
@@ -145,8 +149,8 @@ if (location.pathname.includes('produtos.html')) {
             const numero = document.getElementById('inputNumero').value.trim();
             const tamanho = document.getElementById('inputTamanho').value;
 
-            if (!nome || !numero) {
-              alert('Por favor, preencha o nome e o número personalizados.');
+            if (!tamanho) {
+              alert('Por favor, selecione um tamanho.');
               return;
             }
 
@@ -155,8 +159,8 @@ if (location.pathname.includes('produtos.html')) {
             carrinho.push({
               id_produto: produto.id,
               quantidade: 1,
-              nome_personalizado: nome,
-              numero_personalizado: numero,
+              nome_personalizado: nome || null,
+              numero_personalizado: numero || null,
               tamanho,
               imagem: produto.imagem,
             });
@@ -172,6 +176,7 @@ if (location.pathname.includes('produtos.html')) {
     })();
   });
 }
+
 
 // carrinho.html
 if (location.pathname.includes('carrinho.html')) {
@@ -221,6 +226,48 @@ if (location.pathname.includes('carrinho.html')) {
   })();
 }
 
+const btnFinalizar = document.getElementById('finalizarPedido');
+if (btnFinalizar) {
+  btnFinalizar.addEventListener('click', async () => {
+    const usuario = JSON.parse(localStorage.getItem('usuario'));
+    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+    if (!usuario) {
+      alert('Você precisa estar logado para finalizar o pedido.');
+      window.location.href = 'login.html';
+      return;
+    }
+
+    if (carrinho.length === 0) {
+      alert('Seu carrinho está vazio.');
+      return;
+    }
+
+    try {
+      const res = await fetch('http://localhost:3000/api/pedidos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id_usuario: usuario.id,
+          itens: carrinho
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert('Pedido realizado com sucesso!');
+        localStorage.removeItem('carrinho');
+        window.location.href = 'pedido.html';
+      } else {
+        alert('Erro ao finalizar pedido: ' + (data.error || 'Erro desconhecido'));
+      }
+    } catch (err) {
+      alert('Erro de conexão: ' + err.message);
+    }
+  });
+}
+
 // pedido.html
 if (location.pathname.includes('pedido.html')) {
   const btnFinalizar = document.querySelector('button#finalizarPedido');
@@ -260,3 +307,32 @@ if (location.pathname.includes('pedido.html')) {
     });
   }
 }
+
+
+document.addEventListener('DOMContentLoaded', () => {
+      const usuario = JSON.parse(localStorage.getItem('usuario'));
+
+      const linkEntrar = document.getElementById('linkEntrar');
+      const linkCriarConta = document.getElementById('linkCriarConta');
+      const welcomeText = document.getElementById('welcomeText');
+      const btnSair = document.getElementById('btnSair');
+
+      if (usuario && usuario.nome) {
+        if (linkEntrar) linkEntrar.style.display = 'none';
+        if (linkCriarConta) linkCriarConta.style.display = 'none';
+        if (welcomeText) welcomeText.textContent = `Bem-vindo(a), ${usuario.nome}!`;
+        if (btnSair) btnSair.style.display = 'inline-block';
+      } else {
+        if (linkEntrar) linkEntrar.style.display = 'inline';
+        if (linkCriarConta) linkCriarConta.style.display = 'inline';
+        if (welcomeText) welcomeText.textContent = 'Bem‑vindo à Alternativa Store!';
+        if (btnSair) btnSair.style.display = 'none';
+      }
+
+      if (btnSair) {
+        btnSair.addEventListener('click', () => {
+          localStorage.removeItem('usuario');
+          window.location.reload();
+        });
+      }
+    });

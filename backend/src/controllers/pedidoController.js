@@ -19,8 +19,60 @@ exports.criarPedido = async (req, res) => {
 
 exports.listarPedidos = async (req, res) => {
   try {
-    const [rows] = await db.execute('SELECT * FROM pedidos');
-    res.json(rows);
+    const [rows] = await db.execute(`
+      SELECT 
+        p.id, p.id_usuario, p.data, p.status, u.nome AS nome_cliente,
+        i.quantidade, i.nome_personalizado, i.numero_personalizado,
+        pr.nome AS produto_nome, pr.imagem AS arquivo, pr.preco
+      FROM pedidos p
+      JOIN usuarios u ON p.id_usuario = u.id
+      JOIN itens_pedido i ON i.id_pedido = p.id
+      JOIN produtos pr ON pr.id = i.id_produto
+      ORDER BY p.id, i.id
+    `);
+
+    const pedidos = [];
+    const map = {};
+    rows.forEach(r => {
+      if (!map[r.id]) {
+        map[r.id] = {
+          id: r.id,
+          id_usuario: r.id_usuario,
+          nome_cliente: r.nome_cliente,
+          status: r.status,
+          itens: [],
+          total: 0
+        };
+        pedidos.push(map[r.id]);
+      }
+
+      const pedido = map[r.id];
+      const valorUnitario = parseFloat(r.preco) || 0;
+      pedido.total += valorUnitario * r.quantidade;
+
+      pedido.itens.push({
+        nome: r.produto_nome,
+        quantidade: r.quantidade,
+        nome_personalizado: r.nome_personalizado,
+        numero_personalizado: r.numero_personalizado,
+        arquivo: r.arquivo,
+        preco: valorUnitario
+      });
+    });
+
+    res.json(pedidos);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.atualizarStatus = async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  try {
+    await db.execute('UPDATE pedidos SET status = ? WHERE id = ?', [status, id]);
+    res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

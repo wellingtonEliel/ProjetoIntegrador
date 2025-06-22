@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 
 exports.createUser = async (req, res) => {
   const { nome, email, senha } = req.body;
-  console.log('Recebido no req.body:', req.body); // 👈 VER AQUI
+  console.log('Recebido no req.body:', req.body); 
 
   try {
     const hashed = await bcrypt.hash(senha, 10);
@@ -25,6 +25,8 @@ exports.login = async (req, res) => {
 
     const valid = await bcrypt.compare(senha, rows[0].senha);
     if (!valid) return res.status(400).json({ error: 'Senha inválida' });
+
+    console.log('Login sucesso, usuário:', rows[0]); // <-- coloque isso para depurar
 
     res.json({ message: 'Login realizado com sucesso', usuario: rows[0] });
   } catch (err) {
