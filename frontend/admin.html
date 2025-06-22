@@ -9,18 +9,20 @@
 </head>
 <body class="font-sans antialiased bg-gray-50 text-gray-800">
 
+  <!-- Cabeçalho com nova cor e logo -->
   <header class="shadow">
-    <div class="bg-gray-900 text-gray-100 text-sm py-2">
+    <div class="bg-[#cc5a17] text-white text-sm py-2">
       <div class="container mx-auto flex items-center justify-between px-4">
         <span id="welcomeText">Bem‑vindo à Alternativa Store!</span>
         <div class="space-x-4 flex items-center">
-          <button id="btnSair" class=" hover:text-yellow-400 bg-transparent border-none cursor-pointer text-yellow-400 font-semibold">Sair</button>
+          <button id="btnSair" class="hover:underline bg-transparent border-none cursor-pointer font-semibold">Sair</button>
         </div>
       </div>
     </div>
 
   </header>
 
+  <!-- Conteúdo principal -->
   <section class="py-12">
     <div class="container mx-auto px-4">
       <h1 class="text-3xl font-bold mb-6">Painel do Administrador</h1>
@@ -31,19 +33,21 @@
           <h2 class="text-2xl font-semibold mb-4">Adicionar Produto</h2>
           <form id="addProductForm" class="space-y-4">
             <div>
-              <label class="block font-medium mb-1" for="nomeProduto">Nome</label>
+              <label for="nomeProduto" class="block font-medium mb-1">Nome</label>
               <input id="nomeProduto" name="nome" type="text" required
-                class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" />
+                class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#cc5a17]" />
             </div>
+
             <div>
-              <label class="block font-medium mb-1" for="precoProduto">Preço (R$)</label>
+              <label for="precoProduto" class="block font-medium mb-1">Preço (R$)</label>
               <input id="precoProduto" name="preco" type="number" step="0.01" min="0" required
-                class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" />
+                class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#cc5a17]" />
             </div>
+
             <div>
-              <label class="block font-medium mb-1" for="imagemProduto">Imagem do Produto</label>
-              <select id="imagemProduto" name="imagem"
-                class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" required>
+              <label for="imagemProduto" class="block font-medium mb-1">Imagem do Produto</label>
+              <select id="imagemProduto" name="imagem" required
+                class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#cc5a17]">
                 <option value="">Selecione a imagem</option>
                 <option value="Barcelona-24-25.jpeg">Camisa Barcelona 24-25</option>
                 <option value="Botafogo-24-25.jpeg">Camisa Botafogo 24-25</option>
@@ -59,15 +63,15 @@
             </div>
 
             <div>
-              <label class="block font-medium mb-1" for="estoqueProduto">Estoque</label>
+              <label for="estoqueProduto" class="block font-medium mb-1">Estoque</label>
               <input id="estoqueProduto" name="estoque" type="number" min="0" required
-                class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" />
+                class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#cc5a17]" />
             </div>
 
             <div>
-              <label class="block font-medium mb-1" for="tamanhoProduto">Tamanho</label>
+              <label for="tamanhoProduto" class="block font-medium mb-1">Tamanho</label>
               <select id="tamanhoProduto" name="tamanho" required
-                class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#cc5a17]">
                 <option value="">Selecione</option>
                 <option value="P">P</option>
                 <option value="M">M</option>
@@ -76,16 +80,16 @@
               </select>
             </div>
 
-            <button type="submit" class="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold px-6 py-2 rounded">Adicionar Produto</button>
+            <button type="submit" class="bg-[#cc5a17] hover:bg-orange-700 text-white font-semibold px-6 py-2 rounded">Adicionar Produto</button>
           </form>
         </div>
 
-        <!-- Tabela de Produtos e Pedidos -->
+        <!-- Produtos e Pedidos -->
         <div>
           <div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
             <h2 class="text-2xl font-semibold mb-4">Produtos</h2>
             <table class="min-w-full text-sm table-auto">
-              <thead class="bg-gray-800 text-white">
+              <thead class="bg-[#cc5a17] text-white">
                 <tr>
                   <th class="px-3 py-2 text-left">#</th>
                   <th class="px-3 py-2 text-left">Nome</th>
@@ -94,7 +98,7 @@
                 </tr>
               </thead>
               <tbody id="produtosTableBody">
-                <!-- Produtos listados aqui via JS -->
+                <!-- Produtos adicionados via JS -->
               </tbody>
             </table>
           </div>
@@ -102,7 +106,7 @@
           <div class="bg-white rounded-2xl shadow-lg p-6">
             <h2 class="text-2xl font-semibold mb-4">Pedidos</h2>
             <table class="min-w-full text-sm table-auto">
-              <thead class="bg-gray-800 text-white">
+              <thead class="bg-[#cc5a17] text-white">
                 <tr>
                   <th class="px-3 py-2 text-left">Pedido</th>
                   <th class="px-3 py-2 text-left">Cliente</th>
@@ -111,7 +115,7 @@
                 </tr>
               </thead>
               <tbody id="pedidosTableBody">
-                <!-- Pedidos listados aqui via JS -->
+                <!-- Pedidos adicionados via JS -->
               </tbody>
             </table>
           </div>
@@ -121,18 +125,12 @@
     </div>
   </section>
 
-  <footer class="bg-gray-800 text-gray-100 py-8 mt-16">
+  <!-- Rodapé atualizado -->
+  <footer class="bg-[#cc5a17] text-white py-8 mt-16">
     <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
       <div>
         <h4 class="font-bold text-lg mb-4">Alternativa Store</h4>
         <p class="text-sm">A loja online de camisas esportivas personalizadas.</p>
-      </div>
-      <div>
-        <h4 class="font-bold text-lg mb-4">Links Rápidos</h4>
-        <ul class="space-y-2 text-sm">
-          <li><a href="catalogo.html" class="hover:text-yellow-400">Catálogo</a></li>
-          <li><a href="login.html" class="hover:text-yellow-400">Minha Conta</a></li>
-        </ul>
       </div>
       <div>
         <h4 class="font-bold text-lg mb-4">Contato</h4>
