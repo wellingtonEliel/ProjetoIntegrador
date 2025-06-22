@@ -1,4 +1,3 @@
-version: '3.8'
 
 services:
   db:
@@ -22,6 +21,7 @@ services:
     restart: always
     volumes:
       - ./backend:/app
+      - ./frontend:/app/frontend   
     ports:
       - "3000:3000"
     depends_on:

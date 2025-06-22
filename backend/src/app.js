@@ -11,12 +11,14 @@ app.use(express.json());
 // Rotas da API
 app.use('/api', routes);
 
-// Servir frontend
-app.use(express.static(path.join(__dirname, '../frontend')));
 
-// SPA fallback
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/index.html'));
+const frontendPath = path.join(__dirname, '../frontend');
+console.log('Servindo arquivos estáticos de:', frontendPath);
+
+app.use(express.static(frontendPath));
+
+app.get(/^\/(?!api\/|.*\..*$)/, (req, res) => {
+  res.sendFile(path.join(process.cwd(), 'frontend', 'index.html'));
 });
 
 app.listen(3000, () => {
