@@ -39,7 +39,11 @@ git clone https://github.com/wellingtonEliel/ProjetoIntegrador
 
 2. (Opcional) Ajuste as variáveis do banco no `docker-compose.yml` conforme necessário (`DB_USER`, `DB_PASSWORD`, etc).
 
+
 3. Suba os containers e faça o build do backend:
+
+- Abra o docker no seu windows e espere estar online
+- inicie o terminal bash
 ```bash
 docker-compose up --build
 ```
@@ -49,7 +53,13 @@ docker-compose up --build
 http://localhost:3000
 ```
 
-5. Para o frontend, abra os arquivos HTML diretamente no navegador ou configure o backend para servir esses arquivos.
+## Funcionalidade
+
+- Crie um usuario com o email: admin@admin.admin para acessar a pagina do admnistrador principal
+- Adicione produtos de acordo com a lista de imagens disponíveis
+- Nesta pagina você também pode verificar a situação dos pedidos existentes
+- Crie um usuário comum para fazer os testes de compra, pedido, verificar catálogo, personalização de produtos e finalização de pedidos.
+- Apos  a criação de um pedido você pode verificar a lista de pedidos que seu usuário já realizou e os respectivos status
 
 ---
 
@@ -85,11 +95,7 @@ docker logs mysql_db
 
 ---
 
-## Funcionalidade
 
-- Crie um usuario com o email: admin@admin.admin para acessar a pagina do admnistrador principal
-- Adicione produtos de acordo com a lista de imagens disponíveis
-- Crie um usuário comum para fazer os testes de compra, pedido, verificar catálogo e personalização de produtos
 
 ## Detalhes técnicos
 
