@@ -22,7 +22,6 @@ router.post('/pedidos', pedidoController.criarPedido);
 router.get('/pedidos', pedidoController.listarPedidos);
 router.put('/pedidos/:id/status', pedidoController.atualizarStatus);
 
-router.get('/pedidos/usuario', pedidoController.listarPedidosPorUsuario);
 router.get('/produtos/:id', produtoController.buscarProdutoPorId);
 
 

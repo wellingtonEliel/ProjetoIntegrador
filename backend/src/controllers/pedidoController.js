@@ -18,6 +18,14 @@ exports.criarPedido = async (req, res) => {
 };
 
 exports.listarPedidos = async (req, res) => {
+  const id_usuario = req.query.id_usuario;
+
+  if (id_usuario) {
+    // Se id_usuario estiver presente, chama listarPedidosPorUsuario
+    return exports.listarPedidosPorUsuario(req, res);
+  }
+
+  // Se não, lista todos os pedidos normalmente
   try {
     const [rows] = await db.execute(`
       SELECT 
@@ -65,6 +73,7 @@ exports.listarPedidos = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
 
 exports.atualizarStatus = async (req, res) => {
   const { id } = req.params;
