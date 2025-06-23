@@ -51,3 +51,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 2000);
   });
 });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const usuario = JSON.parse(localStorage.getItem('usuario'));
+    const linkEntrar = document.getElementById('linkEntrar');
+    const linkCriarConta = document.getElementById('linkCriarConta');
+    const welcomeText = document.getElementById('welcomeText');
+    const btnSair = document.getElementById('btnSair');
+
+    if (usuario && usuario.nome) {
+      if (linkEntrar) linkEntrar.style.display = 'none';
+      if (linkCriarConta) linkCriarConta.style.display = 'none';
+      if (welcomeText) welcomeText.textContent = `Bem-vindo(a), ${usuario.nome}!`;
+      if (btnSair) btnSair.style.display = 'inline-block';
+    } else {
+      if (linkEntrar) linkEntrar.style.display = 'inline';
+      if (linkCriarConta) linkCriarConta.style.display = 'inline';
+      if (welcomeText) welcomeText.textContent = 'Bem‑vindo à Alternativa Store!';
+      if (btnSair) btnSair.style.display = 'none';
+    }
+
+    if (btnSair) {
+      btnSair.addEventListener('click', () => {
+        localStorage.removeItem('usuario');
+        window.location.reload();
+      });
+    }
+  });
