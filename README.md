@@ -33,7 +33,7 @@ Loja virtual de camisas esportivas personalizadas, com backend em Node.js e banc
 
 1. Clone o repositório:
 ```bash
-git clone <URL_DO_REPOSITORIO>
+git clone https://github.com/wellingtonEliel/ProjetoIntegrador
 
 ```
 
