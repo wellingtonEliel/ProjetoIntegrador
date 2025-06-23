@@ -1,120 +1,101 @@
 # Alternativa Store
 
-Projeto completo de loja virtual com funcionalidades de cadastro, login, gerenciamento de produtos e pedidos. Desenvolvido com Node.js, Express, MySQL e frontend estático com HTML/CSS/JS, tudo rodando via Docker.
+Loja virtual de camisas esportivas personalizadas, com backend em Node.js e banco MySQL rodando via Docker.
 
 ---
 
-## Tecnologias Utilizadas
+## Tecnologias
 
-- **Frontend**: [HTML5](https://developer.mozilla.org/pt-BR/docs/Web/HTML), [CSS3](https://developer.mozilla.org/pt-BR/docs/Web/CSS) (Tailwind via CDN), [JavaScript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
-- **Backend**: [Node.js](https://nodejs.org/) com [Express](https://expressjs.com/)
-- **Banco de Dados**: [MySQL 8](https://www.mysql.com/)
-- **Ambiente**: [Docker](https://www.docker.com/) + [Docker Compose](https://docs.docker.com/compose/)
-
----
-
-## Estrutura do Projeto
-
-├── backend/              # Código do servidor Node.js e API
-│   ├── app.js            # Arquivo principal do servidor
-│   ├── routes/           # Definição das rotas da API
-│   ├── controllers/      # Lógica de controle das rotas
-│   └── models/           # Modelos de dados (ORM ou raw SQL)
-├── frontend/             # Páginas estáticas do frontend
-│   ├── index.html
-│   ├── cadastro.html
-│   ├── login.html
-│   ├── produtos.html
-│   └── js/               # Scripts JS do frontend
-├── init.sql              # Script de criação do banco de dados
-├── docker-compose.yml    # Configuração dos serviços Docker
-└── README.md
-
+- Node.js 18
+- MySQL 8
+- Docker e Docker Compose
+- Frontend estático (HTML, CSS, JS)
 
 ---
 
-## Como rodar o projeto
+## Estrutura
 
-### Pré-requisitos
+- `/backend/Dockerfile` - imagem do backend Node.js
+- `/docker-compose.yml` - orquestra backend e banco MySQL
+- `/init.sql` - script para criar banco e tabelas no MySQL
+- `/frontend/` - arquivos estáticos do frontend
 
-- [Docker](https://www.docker.com/) instalado
-- [Docker Compose](https://docs.docker.com/compose/)
+---
 
-### Passo a passo
+## Requisitos
+
+- Docker
+- Docker Compose
+
+---
+
+## Como executar
 
 1. Clone o repositório:
-
 ```bash
-git clone https://github.com/wellingtonEliel/ProjetoIntegrador
-cd alternativa-store
+git clone <URL_DO_REPOSITORIO>
+cd <NOME_DO_REPOSITORIO>
 ```
 
-2. Execute o Docker Compose:
+2. (Opcional) Ajuste as variáveis do banco no `docker-compose.yml` conforme necessário (`DB_USER`, `DB_PASSWORD`, etc).
 
+3. Suba os containers e faça o build do backend:
 ```bash
 docker-compose up --build
 ```
 
-3. Acesse no navegador:
-
+4. Acesse o backend na URL:
 ```
 http://localhost:3000
 ```
 
----
-
-## Funcionalidades disponíveis
-
-- Cadastro de usuário
-- Login
-- Cadastro, listagem, edição e exclusão de produtos
-- Criação e listagem de pedidos
+5. Para o frontend, abra os arquivos HTML diretamente no navegador ou configure o backend para servir esses arquivos.
 
 ---
 
-## Endpoints da API
-
-| Método | Rota                  | Descrição                  |
-|--------|-----------------------|----------------------------|
-| POST   | `/api/usuarios`       | Criar novo usuário         |
-| POST   | `/api/login`          | Login do usuário           |
-| GET    | `/api/produtos`       | Listar todos os produtos   |
-| POST   | `/api/produtos`       | Criar novo produto         |
-| PUT    | `/api/produtos/:id`   | Atualizar produto por ID   |
-| DELETE | `/api/produtos/:id`   | Remover produto por ID     |
-| GET    | `/api/pedidos`        | Listar pedidos             |
-| POST   | `/api/pedidos`        | Criar novo pedido          |
-
----
-
-## Acesso ao Banco de Dados
-
-Essas são as credenciais padrão configuradas no Docker Compose:
-
-- Host: `db`
-- Porta: `3306`
-- Banco: `alternativa_store`
-- Usuário: `user`
-- Senha: `password`
-- Root: `rootpassword`
-
----
-
-## Dicas
-
-- Para resetar o ambiente:
+## Parar a aplicação
 
 ```bash
-docker-compose down -v
-docker-compose up --build
+docker-compose down
 ```
 
-- Para ver os logs do backend:
+---
 
+## Comandos úteis
+
+- Ver containers ativos:
 ```bash
-docker logs -f node_backend
+docker ps
 ```
 
-## Licença
+- Entrar no container do backend:
+```bash
+docker exec -it node_backend sh
+```
 
-Projeto com fins educacionais. Livre para modificar e usar.
+- Ver logs do backend:
+```bash
+docker logs node_backend
+```
+
+- Ver logs do banco MySQL:
+```bash
+docker logs mysql_db
+```
+
+---
+
+## Funcionalidade
+
+- Crie um usuario com o email: admin@admin.admin para acessar a pagina do admnistrador principal
+- Adicione produtos de acordo com a lista de imagens disponíveis
+- Crie um usuário comum para fazer os testes de compra, pedido, verificar catálogo e personalização de produtos
+
+## Detalhes técnicos
+
+- O banco MySQL está disponível na porta 3306.
+- Os dados do banco ficam persistidos no volume Docker `dbdata`.
+- O backend Node.js roda na porta 3000, conectando-se ao banco via hostname `db`.
+- Os volumes sincronizam seu código local para facilitar desenvolvimento em tempo real.
+
+---
