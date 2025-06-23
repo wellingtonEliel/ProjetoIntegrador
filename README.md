@@ -34,7 +34,7 @@ Loja virtual de camisas esportivas personalizadas, com backend em Node.js e banc
 1. Clone o repositório:
 ```bash
 git clone <URL_DO_REPOSITORIO>
-cd <NOME_DO_REPOSITORIO>
+
 ```
 
 2. (Opcional) Ajuste as variáveis do banco no `docker-compose.yml` conforme necessário (`DB_USER`, `DB_PASSWORD`, etc).
