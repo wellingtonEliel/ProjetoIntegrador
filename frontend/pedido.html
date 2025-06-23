@@ -44,7 +44,6 @@
           <thead class="bg-gray-800 text-white">
             <tr>
               <th class="px-4 py-3 text-left">Pedido</th>
-              <th class="px-4 py-3 text-left">Data</th>
               <th class="px-4 py-3 text-left">Total</th>
               <th class="px-4 py-3 text-left">Status</th>
             </tr>
@@ -53,6 +52,7 @@
             <!-- Linhas de pedido serão adicionadas aqui via JS -->
           </tbody>
         </table>
+        <div id="itens-pedido" class="p-4 bg-gray-100 hidden rounded-b-2xl max-w-4xl mx-auto mt-4"></div>
       </div>
     </div>
   </section>
@@ -105,6 +105,64 @@
           localStorage.removeItem('usuario');
           window.location.reload();
         });
+      }
+    });
+  </script>
+
+  <!-- SCRIPT PARA LISTAR PEDIDOS DO USUÁRIO -->
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const usuario = JSON.parse(localStorage.getItem('usuario'));
+      if (!usuario) {
+        alert('Você precisa estar logado para ver seus pedidos.');
+        window.location.href = 'login.html';
+        return;
+      }
+
+      const tabelaPedidos = document.getElementById('tabela-pedidos');
+      const divItensPedido = document.getElementById('itens-pedido');
+
+      try {
+        const res = await fetch(`http://localhost:3000/api/pedidos?id_usuario=${usuario.id}`);
+        if (!res.ok) throw new Error('Erro ao buscar pedidos');
+        const pedidos = await res.json();
+
+        if (pedidos.length === 0) {
+          tabelaPedidos.innerHTML = `<tr><td colspan="4" class="text-center py-4">Você ainda não fez nenhum pedido.</td></tr>`;
+          return;
+        }
+
+        // Preenche tabela de pedidos
+        tabelaPedidos.innerHTML = '';
+        pedidos.forEach(pedido => {
+          const tr = document.createElement('tr');
+          tr.className = 'border-b cursor-pointer hover:bg-gray-100';
+          tr.innerHTML = `
+            <td class="px-4 py-3">#${pedido.id}</td>
+            <td class="px-4 py-3">R$ ${pedido.total.toFixed(2).replace('.', ',')}</td>
+            <td class="px-4 py-3">${pedido.status}</td>
+          `;
+
+          // Ao clicar na linha, mostra os itens daquele pedido
+          tr.addEventListener('click', () => {
+            divItensPedido.classList.remove('hidden');
+            divItensPedido.innerHTML = `
+              <h2 class="text-xl font-semibold mb-4">Itens do Pedido #${pedido.id}</h2>
+              <ul class="list-disc list-inside space-y-2">
+                ${pedido.itens.map(item => `
+                  <li>
+                    <strong>${item.nome}</strong> - Quantidade: ${item.quantidade} - Personalizado: ${item.nome_personalizado || '-'} #${item.numero_personalizado || '-'} - Preço unitário: R$ ${item.preco.toFixed(2).replace('.', ',')}
+                  </li>
+                `).join('')}
+              </ul>
+            `;
+          });
+
+          tabelaPedidos.appendChild(tr);
+        });
+      } catch (err) {
+        console.error(err);
+        tabelaPedidos.innerHTML = `<tr><td colspan="4" class="text-center py-4 text-red-600">Erro ao carregar seus pedidos: ${err.message}</td></tr>`;
       }
     });
   </script>

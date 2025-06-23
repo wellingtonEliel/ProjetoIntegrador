@@ -5,6 +5,8 @@ const userController = require('../controllers/userController');
 const produtoController = require('../controllers/produtoController');
 const pedidoController = require('../controllers/pedidoController');
 
+
+
 // Usuários
 router.post('/usuarios', userController.createUser);
 router.post('/login', userController.login);
@@ -18,6 +20,10 @@ router.delete('/produtos/:id', produtoController.deleteProduto);
 // Pedidos
 router.post('/pedidos', pedidoController.criarPedido);
 router.get('/pedidos', pedidoController.listarPedidos);
-router.put('/pedidos/:id/status', pedidoController.atualizarStatus); 
+router.put('/pedidos/:id/status', pedidoController.atualizarStatus);
+
+router.get('/pedidos/usuario', pedidoController.listarPedidosPorUsuario);
+router.get('/produtos/:id', produtoController.buscarProdutoPorId);
+
 
 module.exports = router;

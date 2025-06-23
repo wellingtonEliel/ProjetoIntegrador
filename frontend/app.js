@@ -253,59 +253,57 @@ if (btnFinalizar) {
         }),
       });
 
-      const data = await res.json();
+      const data = await res.json(); // Leia a resposta apenas uma vez
 
       if (res.ok) {
-        alert('Pedido realizado com sucesso!');
+      try {
+        // Busca dados atualizados dos produtos antes de salvar para exibir depois
+        const itensCompletos = await Promise.all(carrinho.map(async item => {
+          try {
+            const resProduto = await fetch(`http://localhost:3000/api/produtos/${item.id_produto}`);
+
+            if (!resProduto.ok) throw new Error(`Produto ${item.id_produto} não encontrado`);
+
+            const dados = await resProduto.json();
+
+            return {
+              nome: dados.nome,
+              preco: dados.preco,
+              quantidade: item.quantidade,
+              tamanho: item.tamanho,
+              nome_personalizado: item.nome_personalizado,
+              numero_personalizado: item.numero_personalizado
+            };
+            
+          } catch (err) {
+            console.error(`Erro ao buscar produto ${item.id_produto}:`, err.message);
+            // Preencher com dados mínimos para evitar quebra
+            return {
+              nome: 'Produto não encontrado',
+              preco: 0,
+              quantidade: item.quantidade,
+              tamanho: item.tamanho,
+              nome_personalizado: item.nome_personalizado,
+              numero_personalizado: item.numero_personalizado
+            };
+          }
+        }));
+
+        localStorage.setItem('itensPedidoFinalizado', JSON.stringify(itensCompletos));
+        localStorage.setItem('pedidoId', data.id_pedido);
         localStorage.removeItem('carrinho');
-        window.location.href = 'pedido.html';
-      } else {
-        alert('Erro ao finalizar pedido: ' + (data.error || 'Erro desconhecido'));
+
+        window.location.href = 'finalizar-pedido.html';
+      } catch (erroProdutos) {
+        alert('Erro ao montar os dados do pedido: ' + erroProdutos.message);
       }
+    } else {
+      alert('Erro ao finalizar pedido: ' + (data.error || 'Erro desconhecido'));
+    }
     } catch (err) {
       alert('Erro de conexão: ' + err.message);
     }
   });
-}
-
-// pedido.html
-if (location.pathname.includes('pedido.html')) {
-  const btnFinalizar = document.querySelector('button#finalizarPedido');
-  if (btnFinalizar) {
-    btnFinalizar.addEventListener('click', async () => {
-      const usuario = JSON.parse(localStorage.getItem('usuario'));
-      if (!usuario) {
-        alert('Você precisa estar logado para finalizar o pedido.');
-        window.location.href = 'login.html';
-        return;
-      }
-      const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-      if (carrinho.length === 0) {
-        alert('Seu carrinho está vazio.');
-        return;
-      }
-
-      try {
-        const res = await fetch('http://localhost:3000/api/pedidos', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ id_usuario: usuario.id, itens: carrinho }),
-        });
-
-        const data = await res.json();
-
-        if (res.ok) {
-          alert('Pedido realizado!');
-          localStorage.removeItem('carrinho');
-          window.location.href = 'pedido.html';
-        } else {
-          alert('Erro: ' + (data.error || 'Falha ao realizar pedido'));
-        }
-      } catch (err) {
-        alert('Erro de conexão: ' + err.message);
-      }
-    });
-  }
 }
 
 

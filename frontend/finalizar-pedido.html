@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alternativa Store | Finalizar Pedido</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="font-sans antialiased bg-gray-50 text-gray-800">
+
+  <!-- HEADER -->
+  <header class="shadow">
+    <div class="bg-[#cc5500] text-white text-sm py-2">
+      <div class="container mx-auto flex items-center justify-between px-4">
+        <span id="welcomeText">Finalizar Pedido</span>
+        <div class="space-x-4 flex items-center">
+          <a href="login.html" class="hover:underline" id="linkEntrar">Entrar</a>
+          <a href="cadastro.html" class="hover:underline" id="linkCriarConta">Criar conta</a>
+          <button id="btnSair" class="hidden hover:underline bg-transparent border-none cursor-pointer font-semibold">Sair</button>
+          <a href="carrinho.html" class="inline-flex items-center hover:underline ml-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.2 6h12.4M7 13L5.4 5M16 17a2 2 0 100 4 2 2 0 000-4zm-8 0a2 2 0 100 4 2 2 0 000-4z" />
+            </svg>
+            Carrinho
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="bg-white">
+      <div class="container mx-auto flex items-center justify-between px-4 py-3">
+        <a href="index.html">
+          <img src="imagens/LogoPNG.png" alt="Alternativa Store" class="w-[300px] h-auto" />
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <main class="container mx-auto px-4 py-12 max-w-lg bg-white rounded-2xl shadow-lg">
+
+    <h1 class="text-3xl font-bold mb-6 text-[#cc5500] text-center">Finalizar Pedido</h1>
+
+    <!-- Itens do pedido -->
+    <section id="resumoPedido" class="mb-8">
+      <h2 class="text-xl font-semibold mb-3 border-b border-[#cc5500] pb-1">Itens do Pedido</h2>
+      <ul id="listaItens" class="mb-4 space-y-2 text-gray-700">
+        <!-- Itens serão inseridos via JS -->
+      </ul>
+      <p class="text-lg font-bold text-[#cc5500]">Total: <span id="valorTotal">R$ 0,00</span></p>
+    </section>
+
+    <!-- Avisos -->
+    <section class="mb-8 p-4 bg-yellow-100 border border-yellow-400 rounded">
+      <p class="mb-2 font-semibold text-yellow-800">
+        Não estamos aceitando pagamentos via cartão de crédito ou débito.
+      </p>
+      <p class="mb-2">
+        Os comprovantes de PIX enviados estarão sujeitos à análise antes da confirmação do pedido.
+      </p>
+      <p>
+        Pagamento via PIX (telefone): <strong>49 99841-5886</strong>
+      </p>
+    </section>
+
+    <form id="formFinalizarPedido" enctype="multipart/form-data" class="space-y-6">
+
+      <div>
+        <label for="endereco" class="block font-semibold mb-2">Endereço de Entrega</label>
+        <textarea id="endereco" name="endereco" rows="4" required placeholder="Digite seu endereço completo" class="w-full border border-gray-300 rounded-lg p-3 resize-none focus:outline-none focus:ring-2 focus:ring-[#cc5500]"></textarea>
+      </div>
+
+      <div>
+        <label for="comprovantePix" class="block font-semibold mb-2">Comprovante de PIX</label>
+        <input type="file" id="comprovantePix" name="comprovantePix" accept="image/*" required
+          class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#cc5500]" />
+      </div>
+
+      <button type="submit" class="w-full bg-[#cc5500] hover:bg-[#b04300] text-white font-semibold py-3 rounded-full shadow-lg transition">
+        Finalizar Pedido
+      </button>
+    </form>
+
+    <div id="mensagem" class="mt-6 text-center font-semibold"></div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#cc5500] text-white py-8 mt-16">
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
+      <div>
+        <h4 class="font-bold text-lg mb-4">Alternativa Store</h4>
+        <p class="text-sm">A loja online de camisas esportivas personalizadas.</p>
+      </div>
+      <div>
+        <h4 class="font-bold text-lg mb-4">Links Rápidos</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="catalogo.html" class="hover:underline">Catálogo</a></li>
+          <li><a href="login.html" class="hover:underline">Minha Conta</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-bold text-lg mb-4">Contato</h4>
+        <p class="text-sm">Email: -</p>
+        <p class="text-sm">WhatsApp: -</p>
+      </div>
+    </div>
+    <div class="text-center text-xs mt-8">© 2025 Alternativa Store – Todos os direitos reservados.</div>
+  </footer>
+
+  <script src="finalizar.js"> </script>
+</body>
+</html>
